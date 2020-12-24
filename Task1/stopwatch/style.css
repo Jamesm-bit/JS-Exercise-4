@@ -1,0 +1,38 @@
+div.calender {
+  width: auto;
+}
+div{
+  width: 500px;
+}
+
+span{
+  text-align: center;
+}
+button{
+  color: white;
+  border-width: 0ch;
+}
+button{
+  color: white;
+  border-width: 0ch;
+  border-radius: 8px;
+}
+#play {
+  background-color: green;
+}
+#pause {
+  background-color: red;
+}
+#resume {
+  background-color: yellow;
+  color: black
+}
+#reset {
+  background-color: orange;
+}
+#calender {
+  display:flex;
+}
+h1 {
+  padding: 10px
+}
