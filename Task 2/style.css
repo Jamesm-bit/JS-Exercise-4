@@ -7,11 +7,13 @@ button.fNameButton {
   background-color: green;
   border-radius: 8px;
   color: white;
+  visibility: visible;
 }
 button.lNameButton{
   background-color: red;
   border-radius: 8px;
   color: white;
+  visibility: visible;
 }
 input {
   margin: 3px;
