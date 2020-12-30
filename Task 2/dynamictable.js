@@ -13,12 +13,23 @@ let divs = null
 let boxes2 = document.getElementsByClassName("chk")
 
 function checkall() {
-    let boxes = document.getElementsByClassName("chk")
-    for (let x = 0; x < boxes.length; x++) {
-        let box = boxes[x]
-        box.checked = true
+    if (checkbx.checked) {
+        let boxes = document.getElementsByClassName("chk")
+        for (let x = 0; x < boxes.length; x++) {
+            let box = boxes[x]
+            box.checked = true
+        }
+        x = 0
+    } else {
+        let boxes = document.getElementsByClassName("chk")
+        for (let x = 0; x < boxes.length; x++) {
+            let box = boxes[x]
+            box.checked = false
+        }
+        x = 0
     }
-    x = 0
+    document.getElementById("totalselec").innerHTML = showcurrselec()
+
 }
 
 function showcurrselec() {
@@ -30,13 +41,28 @@ function showcurrselec() {
     }
     return `Total ${yt} Rows`
 }
+/*
 selecinterval = setInterval(function showselec() {
     document.getElementById("totalselec").innerHTML = showcurrselec()
 }, 100)
-
+*/
 function addelement(f, l) {
     i++
 
+    let fnames = document.getElementsByClassName("innamef")
+    let lnames = document.getElementsByClassName("innamel")
+
+    if (fnames.length > 0) {
+        for (let z = 0; z < fnames.length; z++) {
+            if (f == fnames[z].innerHTML) {
+                for(let y = 0; y < fnames.length; y++) {
+                    if(l == lnames[y].innerHTML) {
+                        return
+                    }
+                }
+            }
+        }
+    }
     divlist2 = document.createElement("div")
     divlist2.setAttribute("id", "div21")
     divlist2.setAttribute("class", "divhold")
@@ -52,12 +78,12 @@ function addelement(f, l) {
 
     fNameTag = document.createElement("p")
     fNameTag.setAttribute("id", "fName" + i)
-    fNameTag.setAttribute("class", "inname")
+    fNameTag.setAttribute("class", "innamef")
     fNameTag.innerHTML = f
 
     lNameTag = document.createElement("p")
     lNameTag.setAttribute("id", "lName" + i)
-    lNameTag.setAttribute("class", "inname")
+    lNameTag.setAttribute("class", "innamel")
     lNameTag.innerHTML = l
 
     listele = document.getElementById("list")
@@ -72,8 +98,8 @@ function addelement(f, l) {
     delbutton.textContent = "Delete";
     delbutton.id = ("del" + i)
 
-    document.getElementById("fname").value = " "
-    document.getElementById("lname").value = " "
+    document.getElementById("fname").value = ""
+    document.getElementById("lname").value = ""
 
     divlist2.appendChild(checkBox)
     divlist.appendChild(fNameTag)
@@ -83,6 +109,7 @@ function addelement(f, l) {
     divlist2.appendChild(divlist)
     listele.appendChild(divlist2)
 
+    document.getElementById("cB" + i).addEventListener("click", () => { document.getElementById("totalselec").innerHTML = showcurrselec() })
     document.getElementById("edit" + i).addEventListener("click", editpush.bind(null, i))
     document.getElementById("del" + i).addEventListener("click", del.bind(null, i))
 }
@@ -100,15 +127,14 @@ function editFinish() {
     document.getElementById("del" + v).style.visibility = "visible"
     document.getElementById("confirmEdit").style.visibility = "hidden"
     document.getElementById("Add").style.visibility = "visible"
-    document.getElementById("fname").value = " "
-    document.getElementById("lname").value = " "
+    document.getElementById("fname").value = ""
+    document.getElementById("lname").value = ""
 }
 
 function editpush(j) {
 
     let fNameChange = document.getElementById("fName" + j).innerHTML
     let lNameChange = document.getElementById("lName" + j).innerHTML
-
 
     document.getElementById("fname").value = fNameChange
     document.getElementById("lname").value = lNameChange
@@ -124,10 +150,12 @@ function editpush(j) {
     }
 
     v = j
+
     document.getElementById("edit" + v).style.visibility = "hidden"
     document.getElementById("del" + v).style.visibility = "hidden"
     document.getElementById("confirmEdit").style.visibility = "visible"
     document.getElementById("Add").style.visibility = "hidden"
+
 
 }
 
@@ -150,16 +178,16 @@ function add() {
 }
 
 function render() {
-    addelement("test1", "test")
-    addelement("test2", "test")
-    addelement("test3", "test")
-    addelement("test4", "test")
-    addelement("test5", "test")
-    addelement("test6", "test")
-    addelement("test7", "test")
-    addelement("test8", "test")
-    addelement("test9", "test")
-    addelement("test10", "test")
+    addelement("test", "test1")
+    addelement("test", "test2")
+    addelement("test", "test3")
+    addelement("test", "test4")
+    addelement("test", "test5")
+    addelement("test", "test6")
+    addelement("test", "test7")
+    addelement("test", "test8")
+    addelement("test", "test9")
+    addelement("test", "test10")
     if (document.getElementById("checkbx").checked == true) {
         checkall()
     }
