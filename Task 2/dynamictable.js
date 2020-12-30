@@ -12,9 +12,18 @@ let boxes = null
 let divs = null
 let boxes2 = document.getElementsByClassName("chk")
 
-function showcurrselec () {
+function checkall() {
+    let boxes = document.getElementsByClassName("chk")
+    for (let x = 0; x < boxes.length; x++) {
+        let box = boxes[x]
+        box.checked = true
+    }
+    x = 0
+}
+
+function showcurrselec() {
     let yt = 0
-    for(p = 0; p<boxes2.length; p ++){
+    for (p = 0; p < boxes2.length; p++) {
         if (boxes2[p].checked == true) {
             yt++
         }
@@ -30,14 +39,14 @@ function addelement(f, l) {
 
     divlist2 = document.createElement("div")
     divlist2.setAttribute("id", "div21")
-    divlist2.setAttribute("class","divhold")
+    divlist2.setAttribute("class", "divhold")
 
     divlist = document.createElement("div")
     divlist.setAttribute("id", "div" + i)
-    divlist.setAttribute("class","div")
+    divlist.setAttribute("class", "div")
 
     checkBox = document.createElement('input')
-    checkBox.setAttribute("class","chk")
+    checkBox.setAttribute("class", "chk")
     checkBox.setAttribute("id", "cB" + i)
     checkBox.type = "checkbox"
 
@@ -87,8 +96,8 @@ function editFinish() {
 
     let previousLName = document.getElementById("lName" + v)
     previousLName.innerHTML = lNameChange
-    document.getElementById("edit"+v).style.visibility = "visible"
-    document.getElementById("del"+v).style.visibility = "visible"
+    document.getElementById("edit" + v).style.visibility = "visible"
+    document.getElementById("del" + v).style.visibility = "visible"
     document.getElementById("confirmEdit").style.visibility = "hidden"
     document.getElementById("Add").style.visibility = "visible"
     document.getElementById("fname").value = " "
@@ -103,9 +112,20 @@ function editpush(j) {
 
     document.getElementById("fname").value = fNameChange
     document.getElementById("lname").value = lNameChange
+
+    let fbuttons = document.getElementsByClassName("fNameButton")
+    let lbuttons = document.getElementsByClassName("lNameButton")
+
+    for (item in fbuttons) {
+        if (item != "length" && item != "item" && item != "namedItem") {
+            fbuttons[item].style.visibility = "visible"
+            lbuttons[item].style.visibility = "visible"
+        }
+    }
+
     v = j
-    document.getElementById("edit"+v).style.visibility = "hidden"
-    document.getElementById("del"+v).style.visibility = "hidden"
+    document.getElementById("edit" + v).style.visibility = "hidden"
+    document.getElementById("del" + v).style.visibility = "hidden"
     document.getElementById("confirmEdit").style.visibility = "visible"
     document.getElementById("Add").style.visibility = "hidden"
 
@@ -126,32 +146,46 @@ function del(z) {
 function add() {
     fname = document.getElementById("fname").value
     lname = document.getElementById("lname").value
-    addelement (fname,lname)
+    addelement(fname, lname)
 }
 
 function render() {
-    addelement("test1","test")
-    addelement("test2","test")
-    addelement("test3","test")
-    addelement("test4","test")
-    addelement("test5","test")
-    addelement("test6","test")
-    addelement("test7","test")
-    addelement("test8","test")
-    addelement("test9","test")
-    addelement("test10","test")
+    addelement("test1", "test")
+    addelement("test2", "test")
+    addelement("test3", "test")
+    addelement("test4", "test")
+    addelement("test5", "test")
+    addelement("test6", "test")
+    addelement("test7", "test")
+    addelement("test8", "test")
+    addelement("test9", "test")
+    addelement("test10", "test")
+    if (document.getElementById("checkbx").checked == true) {
+        checkall()
+    }
 }
 function removechecked() {
-    
+
     boxes = document.getElementsByClassName("chk")
     divs = document.getElementsByClassName("div")
     document.getElementById("checkbx").checked = false
-    for(let x=0; x<boxes.length; x++){
+    for (let x = 0; x < boxes.length; x++) {
         console.log(x)
         let box = boxes[x]
         let div = divs[x]
-        
-        if(box.checked){
+
+        if (box.checked) {
+            box.parentNode.removeChild(box)
+            div.parentNode.removeChild(div)
+            x = 0
+        }
+    }
+    for (x = 0; x < boxes.length; x++) {
+        console.log(x)
+        let box = boxes[x]
+        let div = divs[x]
+
+        if (box.checked) {
             box.parentNode.removeChild(box)
             div.parentNode.removeChild(div)
             x = 0
@@ -159,14 +193,7 @@ function removechecked() {
     }
 }
 
-function checkall () {
-    let boxes = document.getElementsByClassName("chk")
-    for(let x=0; x<boxes.length; x++){
-        let box = boxes[x]
-        box.checked = true
-    }
-    x=0
-}
+
 
 document.getElementById("checkbx").addEventListener("click", checkall)
 document.getElementById("checkdel").addEventListener("click", removechecked)

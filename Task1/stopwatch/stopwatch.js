@@ -1,58 +1,83 @@
 let starttime;
 let elapsedtime = 0;
 let timeinterval;
-
+let sec = 00;
+let min = 00;
+let hrs = 00;
+let intervalstarted = false
 function makereadable(a) {
     let timehrs = a / 3600000
     let hrs = Math.floor(timehrs)
-    let timemins = timehrs*60
+    let timemins = timehrs * 60
     let mins = Math.floor(timemins)
-    let timesec = timemins*60
+    let timesec = timemins * 60
     let secs = Math.floor(timesec)
 
-    let formathrs = hrs.toString().padStart(2,'0')
-    let formatmins = mins.toString().padStart(2,'0')
-    let formatsec = secs.toString().padStart(2,'0')
+    let formathrs = hrs.toString().padStart(2, '0')
+    let formatmins = mins.toString().padStart(2, '0')
+    let formatsec = secs.toString().padStart(2, '0')
 
     return `Time    ${formathrs}:${formatmins}:${formatsec}`
 }
 
-dateinterval = setInterval(function printdate () {
-    let dat = new Date(Date.now())
-    let readdat = dat.toString()
-    let datestr = "Date    "+readdat.substring(3,15)
-    let timestr = "Time    "+readdat.substring(17,25)
-    document.getElementById("minsechr").innerHTML = timestr
-    document.getElementById("mmddyy").innerHTML = datestr
+dateinterval = setInterval(() => {
+    let date = new Date().toString().split(" ")
+    document.getElementById("minsechr").innerHTML = "Time    " + date[4]
+    document.getElementById("mmddyy").innerHTML = "Date    " + date[1] + " " + date[2] + " " + date[3]
 }, 1000)
 
 function start() {
-    starttime = Date.now();
-    timeinterval = setInterval(function printTime() {
-        elapsedtime = Date.now() - starttime;
-        document.getElementById("time").innerHTML = makereadable(elapsedtime)
-    }, 1000)
-
+    hrs = 0
+    min = 0
+    sec = 0
+    if (intervalstarted == false) {
+        timeinterval = setInterval(() => {
+            if (sec == 60) {
+                sec = 0
+                min++
+                if (min == 60) {
+                    hrs++
+                    min = 0
+                }
+            }
+            document.getElementById("time").innerHTML = `Time    ${hrs.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`
+            sec++
+        }, 1000)
+        intervalstarted = true
+    }
 }
 
 function pause() {
     clearInterval(timeinterval)
+    intervalstarted = false
 }
 
 function resume() {
-    elapsedtime = 0
-    timeinterval = setInterval(function printTime() {
-        elapsedtime = Date.now() - starttime;
-        document.getElementById("time").innerHTML = makereadable(elapsedtime)
-    }, 1000)
+    if (intervalstarted == false) {
+        timeinterval = setInterval(() => {
+            if (sec == 60) {
+                sec = 0
+                min++
+                if (min == 60) {
+                    hrs++
+                    min = 0
+                }
+            }
+            document.getElementById("time").innerHTML = `Time    ${hrs.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`
+            sec++
+        }, 1000)
+    }
+    intervalstarted = true
 }
 function reset() {
     clearInterval(timeinterval)
     document.getElementById("time").innerHTML = '00:00:00'
-    elapsedtime = 0
+    hrs = 0
+    min = 0
+    sec = 0
 }
 
-document.getElementById("play").addEventListener("click",start)
-document.getElementById("pause").addEventListener("click",pause)
-document.getElementById("resume").addEventListener("click",resume)
-document.getElementById("reset").addEventListener("click",reset)
+document.getElementById("play").addEventListener("click", start)
+document.getElementById("pause").addEventListener("click", pause)
+document.getElementById("resume").addEventListener("click", resume)
+document.getElementById("reset").addEventListener("click", reset)
