@@ -13,6 +13,7 @@ setInterval(() => {
 }, 1000)
 
 function startStopWatch() {
+    console.log(intervalStarted)
     if (intervalStarted == false) {
         timeInterval = setInterval(() => {
             if (sec == 60) {
@@ -47,6 +48,7 @@ function resume() {
 }
 function reset() {
     clearInterval(timeInterval)
+    intervalStarted = false
     document.getElementById("time").innerHTML = 'Time     00:00:00'
     hrs = 0
     min = 0

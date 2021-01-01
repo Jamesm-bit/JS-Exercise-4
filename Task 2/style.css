@@ -41,3 +41,9 @@ p {
 #list {
   max-width: 600px;
 }
+.checkdel {
+  visibility: visible;
+}
+.chk {
+  visibility: visible;
+}
